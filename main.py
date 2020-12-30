@@ -203,4 +203,4 @@ class Pidor(discord.Client):
 
 
 client = Pidor()
-client.run('NzkxOTk5NzQwMDk4MjQ4NzE0.X-XVPA.5HBTHaQVVEeK8V4yHpxNVnYZQ5I')
+client.run(process.env.BOT_TOKEN)
