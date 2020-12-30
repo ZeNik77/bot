@@ -25,6 +25,7 @@ PyMsgBox==1.0.9
 pyperclip==1.8.1
 PyRect==0.1.4
 PyScreeze==0.1.26
+pysqlite3==0.4.5
 PyTweening==1.0.3
 pywin32-ctypes==0.2.0
 setuptools==41.2.0
