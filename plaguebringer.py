@@ -4,6 +4,8 @@ import random
 import time
 from math import ceil
 
+
+
 '''
             sum = int(msg.content.split()[1])
             sum1 = sum
@@ -32,6 +34,7 @@ class Pidor(discord.Client):
         if id == 0:
             with open('ping.txt', 'r') as f:
                 self.ping = ''.join(f.read())
+            self.pizza = False
         elif id == 1:
             with open('ping.txt', 'w') as f:
                 if self.ping == '':
@@ -92,6 +95,17 @@ class Pidor(discord.Client):
                 'https://media.discordapp.net/attachments/545332087066984449/556391853927301120/50177967_336332557215711_1147320476410839040_n.gif')
             await msg.channel.send(
                 'https://media.discordapp.net/attachments/545332087066984449/556391853927301120/50177967_336332557215711_1147320476410839040_n.gif')
+        if msg.content == 'ВСЕМ ПИЦЦЫ ЗА МОЙ СЧЕТ':
+            self.pizza = True
+            await msg.channel.send('НАЧИНАЮ РАЗДАЧУ ПИТСЫ')
+        if msg.content == 'ХАЧУ ПИТСЫ' and self.pizza == True:
+            await msg.channel.send(f'{msg.author.mention} ДЕРЖИ ПИТСУ\nhttps://media.discordapp.net/attachments/786305593765396481/903157505650204712/image0-2.gif')
+        elif self.pizza == False:
+            await msg.channel.send('нет кого-то кто бы раздавал питсу')
+        if msg.content == 'хватит питсу':
+            self.pizza = False
+            await msg.channel.send('питса кончилась')
+
         if msg.content.startswith(f'{self.p}clean') and msg.author.name == 'ZeNik77':
             time.sleep(3)
             a = int(msg.content.split()[1])
