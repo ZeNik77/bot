@@ -41,7 +41,11 @@ class Pidor(discord.Client):
             p = msg.content.split()[1]
             self.change_prefix(p)
             await msg.channel.send('мой префикс теперь '+self.p)
-
+        if msg.content == 'PLAGUE BARRAGE':
+            await msg.channel.send(f'@everyone PLAGUE NUKE BARRAGE ARMED, PREPARING FOR LAUNCH!!!')
+            time.sleep(10)
+            for i in range(40):
+                await msg.channel.send(f'@everyone https://tenor.com/view/floppa-gif-22427240')
         if msg.content.startswith(f'{self.p}balance'):
             a = msg.content.find('[')
             b = msg.content.find(']')
@@ -203,4 +207,4 @@ class Pidor(discord.Client):
 
 
 client = Pidor()
-client.run(process.env.BOT_TOKEN)
+client.run('')
