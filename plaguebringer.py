@@ -100,7 +100,7 @@ class Pidor(discord.Client):
             await msg.channel.send('НАЧИНАЮ РАЗДАЧУ ПИТСЫ')
         if msg.content == 'ХАЧУ ПИТСЫ' and self.pizza == True:
             await msg.channel.send(f'{msg.author.mention} ДЕРЖИ ПИТСУ\nhttps://media.discordapp.net/attachments/786305593765396481/903157505650204712/image0-2.gif')
-        elif self.pizza == False:
+        elif msg.content == 'ХАЧУ ПИТСЫ' and self.pizza == False:
             await msg.channel.send('нет кого-то кто бы раздавал питсу')
         if msg.content == 'хватит питсу':
             self.pizza = False
