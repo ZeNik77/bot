@@ -70,6 +70,9 @@ class Pidor(discord.Client):
             time.sleep(10)
             for i in range(int(msg.content.split()[2])):
                 await msg.channel.send(f'{self.ping} {random.choice(s)}')
+        if msg.content == 'БОТ УМРИ' and msg.author.name == 'ZeNik77':
+            await msg.channel.send(msg.author.mention+' ЦЕЛИ УНИЧТОЖЕНЫ. ВОЗВРАЩАЮСЬ НА ДОМАШНЮЮ СТАНЦИЮ')
+            exit(0)
         if msg.content == 'ХОХЛЯЦКИЙ ТОРНАДО' and msg.author.name == 'ZeNik77':
             await msg.channel.send(f'{self.ping} ВНИМАНИЕ ВНИМАНИЕ НАБЛЮДАЕТСЯ УХУДШЕНИЕ ПОГОДЫ ЧЕРЕЗ:')
             a = 10
