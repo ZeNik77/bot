@@ -1,5 +1,3 @@
-git+https://github.com/ZeNik77/bot@rewrite
-aiohttp==3.6.3
 altgraph==0.17
 async-timeout==3.0.1
 attrs==20.3.0
