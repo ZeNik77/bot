@@ -119,7 +119,10 @@ class Pidor(discord.Client):
         if msg.content == 'хватит питсу':
             self.pizza = False
             await msg.channel.send('питса кончилась')
-
+        if msg.content.startwith('zt!ship'):
+            await msg.channel.send('КТО ШИППЕРИТ ТУТ?')
+            for i in range(5):
+                await msg.channel.send('https://media.discordapp.net/attachments/545332087066984449/556391853927301120/50177967_336332557215711_1147320476410839040_n.gif')
         if msg.content.startswith(f'{self.p}clean') and msg.author.name == 'ZeNik77':
             time.sleep(3)
             a = int(msg.content.split()[1])
