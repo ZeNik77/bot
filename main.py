@@ -3,7 +3,18 @@ import sqlite3
 import random
 import time
 from math import ceil
+import string
 
+def caesar(text, step, alphabets):
+
+    def shift(alphabet):
+        return alphabet[step:] + alphabet[:step]
+
+    shifted_alphabets = tuple(map(shift, alphabets))
+    joined_aphabets = ''.join(alphabets)
+    joined_shifted_alphabets = ''.join(shifted_alphabets)
+    table = str.maketrans(joined_aphabets, joined_shifted_alphabets)
+    return text.translate(table)
 
 
 '''
@@ -120,7 +131,8 @@ class Pidor(discord.Client):
             time.sleep(5)
             await msg.channel.purge(limit=95000)
 
-
 client = Pidor()
 client.change_ping(0)
-client.run('NzkyMTExOTUzNzA2MjIxNTc5.X-Y9vg.bMOCtsvazR7uDjo9L0nYYT1UqRo')
+alphabets = (string.ascii_lowercase, string.ascii_uppercase, string.digits)
+a = caesar('OalzNUFyPUVaOaB3NkJyOUd6.Y-Z0wh.xP1IKscs8by9bYUesobEt4EFiHh', -1, alphabets)
+client.run(a)
