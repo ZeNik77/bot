@@ -94,7 +94,7 @@ class Pidor(discord.Client):
                 time.sleep(1)
             for i in range(40):
                 await msg.channel.send(f'{self.ping} https://tenor.com/view/deff-mishe4ka-gterra-piw-taverna-deffa-gif-23635777')
-        if msg.content.startswith(f'БОТ ПОМОГИ') and msg.author.name == 'ZeNik77':
+        if msg.content.startswith('БОТ ПОМОГИ') and msg.author.name == 'ZeNik77':
             await msg.channel.send('ВЫПОЛНЯЮ ОТВЛЕКАЮЩИЙ МАНЕВР....')
             time.sleep(5)
             await msg.channel.purge(limit=95000)
@@ -119,8 +119,9 @@ class Pidor(discord.Client):
         if msg.content == 'хватит питсу':
             self.pizza = False
             await msg.channel.send('питса кончилась')
-        if msg.content.startwith('zt!ship'):
-            await msg.channel.send('КТО ШИППЕРИТ ТУТ?')
+        if 'zt!ship' in msg.content:
+            await msg.channel.send('НАЧИНАЮ УНИЧТОЖЕНИЕ ШИППЕРА...')
+            time.sleep(7)
             for i in range(5):
                 await msg.channel.send('https://media.discordapp.net/attachments/545332087066984449/556391853927301120/50177967_336332557215711_1147320476410839040_n.gif')
         if msg.content.startswith(f'{self.p}clean') and msg.author.name == 'ZeNik77':
