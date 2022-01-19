@@ -67,24 +67,24 @@ class Pidor(discord.Client):
             p = msg.content.split()[1]
             self.change_prefix(p)
             await msg.channel.send('мой префикс теперь '+self.p)
-        if msg.content == f'{self.p}ping' and msg.author.name == 'ZeNik77':
+        if msg.content == f'{self.p}ping' and msg.author.id == 449139068043788288:
             self.change_ping(1)
             await msg.channel.send('текущий пинг: '+'\\'+self.ping)
-        if msg.content == 'PLAGUE BARRAGE' and msg.author.name == 'ZeNik77':
+        if msg.content == 'PLAGUE BARRAGE':
             await msg.channel.send(f'{self.ping} PLAGUE NUKE BARRAGE ARMED, PREPARING FOR LAUNCH!!!')
             time.sleep(10)
             for i in range(40):
                 await msg.channel.send(f'{self.ping} https://tenor.com/view/floppa-gif-22427240')
-        if 'ROCKET BARRAGE' in msg.content and msg.author.name == 'ZeNik77':
+        if 'ROCKET BARRAGE' in msg.content:
             s = ['https://tenor.com/view/ukraine-flags-waving-gif-16757086', 'https://tenor.com/view/%D1%83%D0%BA%D1%80%D0%B0%D0%B8%D0%BD%D0%B0%D1%83%D0%B2%D1%80%D0%BE%D0%BF%D0%B0-%D1%83%D0%BA%D1%80%D0%B0%D0%B8%D0%BD%D0%B0-%D0%B5%D0%B2%D1%80%D0%BE%D0%BF%D0%B0-%D1%84%D0%BB%D0%B0%D0%B3-stars-gif-16830672', 'https://tenor.com/view/%D1%81%D0%BB%D0%B0%D0%B2%D0%B0-%D1%83%D0%BA%D1%80%D0%B0%D1%97%D0%BD%D1%96-%D0%BF%D1%80%D0%B0%D0%BF%D0%BE%D1%80-%D1%83%D0%BA%D1%80%D0%B0%D1%97%D0%BD%D0%B8-%D0%B6%D0%BE%D0%B2%D1%82%D0%BE-gif-20238850', 'https://tenor.com/view/%D0%BB%D1%8E%D0%B1%D0%BB%D1%8E-%D0%BA%D0%BE%D1%85%D0%B0%D1%8E-%D1%83%D0%BA%D1%80%D0%B0%D1%97%D0%BD%D1%83-%D1%83%D0%BA%D1%80%D0%B0%D1%97%D0%BD%D0%B0-%D1%83%D0%BA%D1%80%D0%B0%D1%97%D0%BD%D1%81%D1%8C%D0%BA%D0%B0-gif-20239168', 'https://tenor.com/view/ukrayna-ukraine-flag-ukraine-gif-23460766', 'https://tenor.com/view/ukraine-flag-ukraine-flag-flag-ukraine-ukraine-map-gif-14339705', 'https://tenor.com/view/%D0%BB%D1%8E%D0%B1%D0%BB%D1%8E-%D0%BA%D0%BE%D1%85%D0%B0%D1%8E-%D1%83%D0%BA%D1%80%D0%B0%D1%97%D0%BD%D1%83-%D1%83%D0%BA%D1%80%D0%B0%D1%97%D0%BD%D0%B0-%D1%83%D0%BA%D1%80%D0%B0%D1%97%D0%BD%D1%81%D1%8C%D0%BA%D0%BE%D1%8E-gif-20239179']
             await msg.channel.send(f'{self.ping} СКОРО НАЧНЕТСЯ \nУКРАИНСКАЯ БОМБАРДИРОВКА')
             time.sleep(10)
             for i in range(int(msg.content.split()[2])):
                 await msg.channel.send(f'{self.ping} {random.choice(s)}')
-        if msg.content == 'БОТ УМРИ' and msg.author.name == 'ZeNik77':
+        if msg.content == 'БОТ УМРИ' and msg.author.id == 449139068043788288:
             await msg.channel.send(msg.author.mention+' ЦЕЛИ УНИЧТОЖЕНЫ. ВОЗВРАЩАЮСЬ НА ДОМАШНЮЮ СТАНЦИЮ')
             exit(0)
-        if msg.content == 'ХОХЛЯЦКИЙ ТОРНАДО' and msg.author.name == 'ZeNik77':
+        if msg.content == 'ХОХЛЯЦКИЙ ТОРНАДО':
             await msg.channel.send(f'{self.ping} ВНИМАНИЕ ВНИМАНИЕ НАБЛЮДАЕТСЯ УХУДШЕНИЕ ПОГОДЫ ЧЕРЕЗ:')
             a = 10
             aa = a
@@ -94,7 +94,7 @@ class Pidor(discord.Client):
                 time.sleep(1)
             for i in range(40):
                 await msg.channel.send(f'{self.ping} https://tenor.com/view/deff-mishe4ka-gterra-piw-taverna-deffa-gif-23635777')
-        if msg.content.startswith('БОТ ПОМОГИ') and msg.author.name == 'ZeNik77':
+        if msg.content.startswith('БОТ ПОМОГИ') and msg.author.id == 449139068043788288:
             await msg.channel.send('ВЫПОЛНЯЮ ОТВЛЕКАЮЩИЙ МАНЕВР....')
             time.sleep(5)
             await msg.channel.purge(limit=95000)
@@ -124,14 +124,14 @@ class Pidor(discord.Client):
             time.sleep(7)
             for i in range(5):
                 await msg.channel.send('https://media.discordapp.net/attachments/545332087066984449/556391853927301120/50177967_336332557215711_1147320476410839040_n.gif')
-        if msg.content.startswith(f'{self.p}clean') and msg.author.name == 'ZeNik77':
+        if msg.content.startswith(f'{self.p}clean') and msg.author.id == 449139068043788288:
             time.sleep(3)
             a = int(msg.content.split()[1])
             await msg.channel.purge(limit=a)
-        if msg.content.startswith(f'{self.p}trueclean') and msg.author.name == 'ZeNik77':
+        if msg.content.startswith(f'{self.p}trueclean') and msg.author.id == 449139068043788288:
             time.sleep(5)
             await msg.channel.purge(limit=40)
-        if msg.content.startswith(f'{self.p}truetrueclean') and msg.author.name == 'ZeNik77':
+        if msg.content.startswith(f'{self.p}truetrueclean') and msg.author.id == 449139068043788288:
             time.sleep(5)
             await msg.channel.purge(limit=95000)
 
