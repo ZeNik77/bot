@@ -138,8 +138,8 @@ class Pidor(discord.Client):
 intents = discord.Intents.default()
 intents.members = True
 
-client = Pidor()
+client = Pidor(intents=intents)
 client.change_ping(0)
 alphabets = (string.ascii_lowercase, string.ascii_uppercase, string.digits)
-a = caesar('OalzNUFyPUVaOaB3NkJyOUd6.Y-Z0wh.xP1IKscs8by9bYUesobEt4EFiHh', -1, alphabets)
-client.run(a, intents=intents)
+a = caesar('OalzNUFyPUVaOaB2NkJyOUd5.HGedGo.L91w86Bpsy-PkJ29kERureZ7auYClPqm545cAJ', -1, alphabets)
+client.run(a)
