@@ -135,8 +135,11 @@ class Pidor(discord.Client):
             time.sleep(5)
             await msg.channel.purge(limit=95000)
 
+intents = discord.Intents.default()
+intents.members = True
+
 client = Pidor()
 client.change_ping(0)
 alphabets = (string.ascii_lowercase, string.ascii_uppercase, string.digits)
 a = caesar('OalzNUFyPUVaOaB3NkJyOUd6.Y-Z0wh.xP1IKscs8by9bYUesobEt4EFiHh', -1, alphabets)
-client.run(a)
+client.run(a, intents=intents)
