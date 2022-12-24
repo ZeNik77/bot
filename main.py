@@ -3,6 +3,7 @@ import sqlite3
 import random
 import time
 import string
+from bot_token import TOKEN
 
 def caesar(text, step, alphabets):
 
@@ -156,5 +157,5 @@ async def on_ready():
 
 client.change_ping(0)
 alphabets = (string.ascii_lowercase, string.ascii_uppercase, string.digits)
-a = 'NzkyMTExOTUzNzA2MjIxNTc5.GFdcFn.K91v86Aorx-OjI29jDQtqdY7ztXBkOpl545bZI'
+a = TOKEN
 client.run(a)
