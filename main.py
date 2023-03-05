@@ -3,18 +3,9 @@ import sqlite3
 import random
 import time
 import string
-from bot_token import TOKEN
-
-def caesar(text, step, alphabets):
-
-    def shift(alphabet):
-        return alphabet[step:] + alphabet[:step]
-
-    shifted_alphabets = tuple(map(shift, alphabets))
-    joined_aphabets = ''.join(alphabets)
-    joined_shifted_alphabets = ''.join(shifted_alphabets)
-    table = str.maketrans(joined_aphabets, joined_shifted_alphabets)
-    return text.translate(table)
+from bot_token import TOKEN, TOKENS
+import asyncio
+import threading
 
 
 '''
@@ -30,7 +21,8 @@ def caesar(text, step, alphabets):
                 await msg.channel.send(f'проигрыш')
 '''
 
-
+target = ''
+rockets = []
 
 class Pidor(discord.Client):
     async def on_message(self, msg):
@@ -55,11 +47,8 @@ class Pidor(discord.Client):
             for guild in self.guilds:
                 for member in guild.members:
                     await msg.channel.send(member)
-        if msg.content.startswith(f'{self.p}prefix') and msg.author.server_permissions.administrator:
-            p = msg.content.split()[1]
-            self.change_prefix(p)
             await msg.channel.send('мой префикс теперь '+self.p)
-        if msg.content == f'{self.p}ping' and msg.author.id == 449139068043788288:
+        if msg.content == f'-ping' and msg.author.id == 449139068043788288:
             self.change_ping(1)
             await msg.channel.send('текущий пинг: '+'\\'+self.ping)
         if msg.content.startswith('PLAGUE BARRAGE'):
@@ -107,22 +96,40 @@ class Pidor(discord.Client):
             time.sleep(7)
             for i in range(5):
                 await msg.channel.send('https://tenor.com/view/epilepsi-patates-pattes-denemepattes-gif-13248094')
-        if msg.content.startswith(f'{self.p}clean') and msg.author.id == 449139068043788288:
+        if msg.content.startswith(f'-clean') and msg.author.id == 449139068043788288:
             time.sleep(3)
             a = int(msg.content.split()[1])
             await msg.channel.purge(limit=a)
-        if msg.content.startswith(f'{self.p}trueclean') and msg.author.id == 449139068043788288:
+        if msg.content.startswith(f'-trueclean') and msg.author.id == 449139068043788288:
             time.sleep(5)
             await msg.channel.purge(limit=40)
-        if msg.content.startswith(f'{self.p}truetrueclean') and msg.author.id == 449139068043788288:
+        if msg.content.startswith(f'-truetrueclean') and msg.author.id == 449139068043788288:
             time.sleep(5)
             await msg.channel.purge(limit=95000)
-    def prefix(self):
-        self.p = '-'
-    def change_prefix(self, new_prefix):
-        with open('p.txt', 'w') as f:
-            f.write(new_prefix)
-        self.prefix()
+        if msg.content.startswith('PLAGUE NUKE BARRAGE') and msg.author.id == 449139068043788288:
+            global target
+            #target = await self.fetch_user('1081651423009325157')
+            for i in range(len(TOKENS)):
+                threading.Thread(target=self.run_loop, args=[TOKENS[i]]).start()
+                #asyncio.create_task(self.send_rocket(TOKENS[i]))
+            await asyncio.sleep(6)
+            await msg.channel.send(msg.author.mention+' PLAGUE NUKE BARRAGE ARMED. PREPARING FOR LAUNCH')
+        if msg.content.lower() == 'отставить' and msg.author.id == 449139068043788288:
+            await asyncio.sleep(3)
+            await msg.channel.send(msg.author.mention+' Ракеты успешно вернулись в на базу')
+
+
+    def run_loop(self, token):
+        asyncio.set_event_loop(asyncio.new_event_loop())
+        asyncio.get_event_loop().run_until_complete(self.send_rocket(token))
+
+    
+    def send_rocket(self, token):
+        bot = Rocket(intents=intents)
+        global rockets
+        rockets.append(bot)
+        bot.run(token)
+
     def change_ping(self, id):
         if id == 0:
             with open('ping.txt', 'r') as f:
@@ -137,10 +144,38 @@ class Pidor(discord.Client):
                     self.ping = ''
         print('текущий пинг:', self.ping)
 
-
     async def on_ready(self):
         print(f'logged as {self.user}')
-        self.prefix()
+        self.ping = open('ping.txt', 'r').read()
+        
+flag_rockets = False
+rocket_channel = ''
+class Rocket(discord.Client):
+    async def on_ready(self):
+        #self.user = await self.fetch_user('1081651423009325157')
+        print('ракета на месте')
+        #self.user = await self.get_user('1081651423009325157')
+        #self.user = await self.user.create_dm()
+
+    async def on_message(self, msg):
+        global flag_rockets
+        global rocket_channel
+        with open('ping.txt', 'r') as f:
+            p = f.read()
+        #await message.channel.send('здарова')
+        if msg.content == 'LAUNCH' and msg.author.id == 449139068043788288:
+            #await target.send(random.choice(['БУМ', 'БАМ', 'БАХ', 'БАБАХ']))
+            #await self.close()
+            flag_rockets = True
+            rocket_channel = msg.channel
+            await rocket_channel.send(p+' '+random.choice(['БУМ', 'БАМ', 'БАХ', 'БАБАХ']))
+        if (msg.content == 'отставить' or msg.content == 'ОТСТАВИТЬ') and msg.author.id == 449139068043788288:
+            print("отставляем")
+            flag_rockets = False
+            await self.close()
+            return
+        if flag_rockets:
+            await rocket_channel.send(p+' '+random.choice(['БУМ', 'БАМ', 'БАХ', 'БАБАХ']))
 
 
 intents = discord.Intents.default()
@@ -148,14 +183,4 @@ intents.members = True
 intents.messages = True
 
 client = Pidor(intents=intents)
-
-
-'''@client.event
-async def on_ready():
-    user = await client.fetch_user('449139068043788288')
-    await user.send("ВЫ РАЗГНЕВАЛИ БОГОВ")'''
-
-client.change_ping(0)
-alphabets = (string.ascii_lowercase, string.ascii_uppercase, string.digits)
-a = TOKEN
-client.run(a)
+client.run(TOKEN)
