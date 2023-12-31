@@ -107,28 +107,25 @@ class Pidor(discord.Client):
             time.sleep(5)
             await msg.channel.purge(limit=95000)
         if msg.content.startswith('PLAGUE NUKE BARRAGE') and msg.author.id == 449139068043788288:
-            global target
+            #global target
             #target = await self.fetch_user('1081651423009325157')
+            self.xd = []
             for i in range(len(TOKENS)):
-                threading.Thread(target=self.run_loop, args=[TOKENS[i]]).start()
-                #asyncio.create_task(self.send_rocket(TOKENS[i]))
-            await asyncio.sleep(6)
+                #threading.Thread(target=self.run_loop, args=[TOKENS[i]]).start()
+                asyncio.create_task(self.send_rocket(TOKENS[i]))
+            await asyncio.sleep(3)
             await msg.channel.send(msg.author.mention+' PLAGUE NUKE BARRAGE ARMED. PREPARING FOR LAUNCH')
+
         if msg.content.lower() == 'отставить' and msg.author.id == 449139068043788288:
             await asyncio.sleep(3)
             await msg.channel.send(msg.author.mention+' Ракеты успешно вернулись в на базу')
 
 
-    def run_loop(self, token):
-        asyncio.set_event_loop(asyncio.new_event_loop())
-        asyncio.get_event_loop().run_until_complete(self.send_rocket(token))
-
-    
-    def send_rocket(self, token):
+    async def send_rocket(self, token):
         bot = Rocket(intents=intents)
-        global rockets
-        rockets.append(bot)
-        bot.run(token)
+        #global rockets
+        #rockets.append(bot)
+        await bot.start(token)
 
     def change_ping(self, id):
         if id == 0:
@@ -156,31 +153,31 @@ class Rocket(discord.Client):
         print('ракета на месте')
         #self.user = await self.get_user('1081651423009325157')
         #self.user = await self.user.create_dm()
+        with open('ping.txt', 'r') as f:
+            self.p = f.read()
 
     async def on_message(self, msg):
         global flag_rockets
         global rocket_channel
-        with open('ping.txt', 'r') as f:
-            p = f.read()
+
         #await message.channel.send('здарова')
         if msg.content == 'LAUNCH' and msg.author.id == 449139068043788288:
             #await target.send(random.choice(['БУМ', 'БАМ', 'БАХ', 'БАБАХ']))
             #await self.close()
             flag_rockets = True
             rocket_channel = msg.channel
-            await rocket_channel.send(p+' '+random.choice(['БУМ', 'БАМ', 'БАХ', 'БАБАХ']))
+            await rocket_channel.send(self.p+' '+random.choice(['БУМ', 'БАМ', 'БАХ', 'БАБАХ']))
         if (msg.content == 'отставить' or msg.content == 'ОТСТАВИТЬ') and msg.author.id == 449139068043788288:
             print("отставляем")
             flag_rockets = False
             await self.close()
             return
         if flag_rockets:
-            await rocket_channel.send(p+' '+random.choice(['БУМ', 'БАМ', 'БАХ', 'БАБАХ']))
+            await rocket_channel.send(self.p+' '+random.choice(['БУМ', 'БАМ', 'БАХ', 'БАБАХ']))
+            #asyncio.sleep(1)
 
 
-intents = discord.Intents.default()
-intents.members = True
-intents.messages = True
+intents = discord.Intents.all()
 
 client = Pidor(intents=intents)
 client.run(TOKEN)
