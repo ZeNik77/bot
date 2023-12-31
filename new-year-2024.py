@@ -8,10 +8,10 @@ class Bot(discord.Client):
         channel_id = 1082793741259112541
         test_id = 1190800614779801640
         channel = await client.fetch_channel(channel_id)
-        await channel.send('Всем привет, я снова тут с ботом урааа(немного квест немного итоги года, смотрим)')
+        await channel.send('@everyone Всем привет, я снова тут с ботом урааа(немного квест немного итоги года, смотрим)')
         await asyncio.sleep(0.5)
-        await channel.send('https://tenor.com/view/vergil-chair-dmc-yamato-gif-21401933')
-        await asyncio.sleep(3)
+        await channel.send('https://media.discordapp.net/attachments/741945274901200897/1041057132482674719/attachment-1.gif?ex=65a2d682&is=65906182&hm=701f4a2cfe1137f6146355e7b5824427fe73862090283e437b651b635871ce13&')
+        await asyncio.sleep(2)
         await channel.send('Начнем?')
         await channel.send(':pig2:')
         self.cat = []
