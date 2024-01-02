@@ -23,7 +23,6 @@ import threading
 
 target = ''
 rockets = []
-
 class Pidor(discord.Client):
     async def on_message(self, msg):
         if msg.author == self.user:
@@ -31,16 +30,20 @@ class Pidor(discord.Client):
         if msg.author.id == 449139068043788288 and 'YOUR MOM' in msg.content:
             await msg.channel.send(f'{self.ping} Loading image of ur mom.....')
             time.sleep(5)
+            await msg.channel.send(f'{self.ping} Please wait, the image is too big')
+            time.sleep(5)
             await msg.channel.send('https://cdn.discordapp.com/attachments/816923139299868682/910326955537207316/image0-1-1-1.png')
             await msg.channel.send('https://cdn.discordapp.com/attachments/816923139299868682/910326970468958308/image0-3-1-1.png')
             await msg.channel.send('https://cdn.discordapp.com/attachments/816923139299868682/910326986218565692/image0-4-1-2.png')
             await msg.channel.send('https://cdn.discordapp.com/attachments/816923139299868682/910326999397040138/image0-5-1.png')
             await msg.channel.send('https://cdn.discordapp.com/attachments/816923139299868682/910327003331325972/image0-6-1-1.png')
-                
+        
         if msg.author.id == 449139068043788288 and 'ПОСЛАТЬ НАЗУЙ' in msg.content:
-            user = await self.fetch_user('649223035940896788')
-            for i in range(100):
-                await user.send("ВЫ РАЗГНЕВАЛИ БОГОВ")
+            id = msg.content.split()[2]
+            n = int(msg.content.split()[3])
+            user = await self.fetch_user(id)
+            for i in range(n):
+                await user.send(user.mention + " ВЫ РАЗГНЕВАЛИ БОГОВ")
                 time.sleep(2)
         if msg.author.id == 449139068043788288 and 'розвiдка' in msg.content:
             print('руку')
@@ -64,7 +67,7 @@ class Pidor(discord.Client):
                 await msg.channel.send(f'{self.ping} {random.choice(s)}')
         if msg.content == 'БОТ УМРИ' and msg.author.id == 449139068043788288:
             await msg.channel.send(msg.author.mention+' ЦЕЛИ УНИЧТОЖЕНЫ. ВОЗВРАЩАЮСЬ НА ДОМАШНЮЮ СТАНЦИЮ')
-            exit(0)
+            await self.close()
         if msg.content == 'ХОХЛЯЦКИЙ ТОРНАДО':
             await msg.channel.send(f'{self.ping} ВНИМАНИЕ ВНИМАНИЕ НАБЛЮДАЕТСЯ УХУДШЕНИЕ ПОГОДЫ ЧЕРЕЗ:')
             a = 10
@@ -113,7 +116,9 @@ class Pidor(discord.Client):
             for i in range(len(TOKENS)):
                 #threading.Thread(target=self.run_loop, args=[TOKENS[i]]).start()
                 asyncio.create_task(self.send_rocket(TOKENS[i]))
-            await asyncio.sleep(3)
+            await asyncio.sleep(2)
+            global rocket_channel
+            rocket_channel = msg.channel
             await msg.channel.send(msg.author.mention+' PLAGUE NUKE BARRAGE ARMED. PREPARING FOR LAUNCH')
 
         if msg.content.lower() == 'отставить' and msg.author.id == 449139068043788288:
@@ -155,26 +160,22 @@ class Rocket(discord.Client):
         #self.user = await self.user.create_dm()
         with open('ping.txt', 'r') as f:
             self.p = f.read()
-
+        self.commander_id = 449139068043788288
+        print(self.commander_id)
     async def on_message(self, msg):
         global flag_rockets
         global rocket_channel
 
         #await message.channel.send('здарова')
-        if msg.content == 'LAUNCH' and msg.author.id == 449139068043788288:
+        if (msg.content == 'LAUNCH' or msg.content == 'ЗАЛП') and msg.author.id == self.commander_id:
             #await target.send(random.choice(['БУМ', 'БАМ', 'БАХ', 'БАБАХ']))
             #await self.close()
-            flag_rockets = True
             rocket_channel = msg.channel
             await rocket_channel.send(self.p+' '+random.choice(['БУМ', 'БАМ', 'БАХ', 'БАБАХ']))
         if (msg.content == 'отставить' or msg.content == 'ОТСТАВИТЬ') and msg.author.id == 449139068043788288:
             print("отставляем")
-            flag_rockets = False
             await self.close()
             return
-        if flag_rockets:
-            await rocket_channel.send(self.p+' '+random.choice(['БУМ', 'БАМ', 'БАХ', 'БАБАХ']))
-            #asyncio.sleep(1)
 
 
 intents = discord.Intents.all()
